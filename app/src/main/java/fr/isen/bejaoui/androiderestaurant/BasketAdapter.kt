@@ -47,6 +47,9 @@ class BasketAdapter(private val basket: Basket,
 
     override fun onBindViewHolder(holder: BasketViewHolder, position: Int) {
         val item = basket.items[position]
+        holder.layout.setOnClickListener {
+            entryClickListener.invoke(item)
+        }
         holder.bind(item, context, entryClickListener)
     }
 }

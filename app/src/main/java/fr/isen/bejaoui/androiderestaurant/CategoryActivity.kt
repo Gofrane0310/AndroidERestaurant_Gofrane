@@ -63,7 +63,7 @@ class CategoryActivity : BaseActivity() {
             val loader = Loader()
             loader.show(this, "récupération du menu")
             val queue = Volley.newRequestQueue(this)
-            val url = "http://test.api.catering.bluecodegames.com/menu"
+            val url = NetworkConstant.BASE_URL + NetworkConstant.PATH_MENU
             val jsondata = JSONObject()
             jsondata.put("id_shop", 1)
             var stringRequest = JsonObjectRequest(

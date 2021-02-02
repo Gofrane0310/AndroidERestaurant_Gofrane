@@ -61,6 +61,7 @@ class DetailActivity : BaseActivity() {
         val basket = Basket.getBasket(this)
         basket.addItem(BasketItem(dish, count))
         basket.save(this)
+        invalidateOptionsMenu()
         Snackbar.make(binding.root, getString(R.string.basket_validation), Snackbar.LENGTH_LONG).show()
     }
 }
