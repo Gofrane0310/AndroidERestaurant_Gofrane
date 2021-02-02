@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.bejaoui.androiderestaurant.databinding.ActivityBasketBinding
 
-class BasketActivity : AppCompatActivity()/*, BasketCellInterface */{
+class BasketActivity : AppCompatActivity() {
     lateinit var binding: ActivityBasketBinding
+    private lateinit var basket: Basket
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBasketBinding.inflate(layoutInflater)

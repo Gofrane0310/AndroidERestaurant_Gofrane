@@ -6,14 +6,19 @@ import android.content.SharedPreferences
 import android.view.Menu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import fr.isen.bejaoui.androiderestaurant.CategoryActivity.Companion.USER_PREFERENCES_NAME
 
 open class BaseActivity: AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         val menuView = menu?.findItem(R.id.basket)?.actionView
-        val countText = menuView?.findViewById<TextView>(R.id.basketCount)
-        countText?.text = "1"
+        val countText = menuView?.findViewById(R.id.basketCount) as? TextView
+        //countText?.text = "1"
+        val count = getItemsCount()
+        countText?.isVisible = count > 0
+
+        countText?.text = count.toString()
 
         menuView?.setOnClickListener {
             val intent = Intent(this, BasketActivity::class.java)

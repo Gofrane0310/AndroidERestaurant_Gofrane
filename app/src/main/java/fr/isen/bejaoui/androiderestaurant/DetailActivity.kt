@@ -2,6 +2,7 @@ package fr.isen.bejaoui.androiderestaurant
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import fr.isen.bejaoui.androiderestaurant.databinding.ActivityDetailBinding
 import fr.isen.bejaoui.androiderestaurant.models.Dish
@@ -23,12 +24,16 @@ class DetailActivity : BaseActivity() {
         setContentView(binding.root)
 
         val dish = intent.getSerializableExtra(DISH_EXTRA) as? Dish
+
+        dish?.let {
+            setupView(it)
+        }
     }
 
     private fun setupView(dish: Dish){
-        binding.ingredientTextView.text = dish.name
-        binding.ingredientTextView.text = dish.ingredients.map { it.name }?.joinToString { "" }
-        //binding.viewPager.adapter = PhotoFragment(this, dish.images)
+        binding.dishTitleTextView.text = dish.name
+        binding.ingredientTextView.text = dish.ingredients.map { it.name }?.joinToString ( ", " )
+        binding.viewPager.adapter = PhotoAdapter(this, dish.images)
         refreshShop(dish)
 
         binding.less.setOnClickListener {
@@ -47,7 +52,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun refreshShop(dish: Dish) {
-        val price = itemCount * dish.prices.first().price.toInt()
+        val price = itemCount * dish.prices.first().price.toFloat()
         binding.itemCount.text = itemCount.toString()
         binding.shopButton.text = "${"Total"} $price€"
     }

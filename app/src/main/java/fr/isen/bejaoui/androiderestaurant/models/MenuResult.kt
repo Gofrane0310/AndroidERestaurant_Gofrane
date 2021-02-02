@@ -1,6 +1,7 @@
 package fr.isen.bejaoui.androiderestaurant.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 class MenuResult(val data: List<Category>) {}
 class Category(@SerializedName("name_fr") val name: String, val items: List<Dish>) {}
@@ -9,7 +10,7 @@ class Dish(
     val ingredients: List<Ingredient>,
     val images: List<String>,
     val prices: List<Price>
-){
+): Serializable{
     fun getThumbnaiUrl(): String? {
         return if (images.isNotEmpty() && images[0].isNotEmpty()) {
             images[0]
@@ -18,5 +19,5 @@ class Dish(
         }
     }
 }
-class Ingredient(@SerializedName("name_fr") val name: String) {}
-class Price(val price: String) {}
+class Ingredient(@SerializedName("name_fr") val name: String):Serializable {}
+class Price(val price: String):Serializable {}

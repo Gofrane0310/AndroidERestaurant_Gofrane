@@ -60,6 +60,8 @@ class CategoryActivity : BaseActivity() {
         resultFromCache()?.let {
             parseResult(it, selectedItem)
         }?: run {
+            val loader = Loader()
+            loader.show(this, "récupération du menu")
             val queue = Volley.newRequestQueue(this)
             val url = "http://test.api.catering.bluecodegames.com/menu"
             val jsondata = JSONObject()
@@ -69,11 +71,13 @@ class CategoryActivity : BaseActivity() {
                     url,
                     jsondata,
                     { response ->
+                        loader.hide(this)
                         binding.swipeLayout.isRefreshing = false
                         cacheResult(response.toString())
                         parseResult(response.toString(), selectedItem)
                     },
                     { error ->
+                        loader.hide(this)
                         binding.swipeLayout.isRefreshing = false
                         error.message?.let {
                             Log.d("request", it)
@@ -115,13 +119,15 @@ class CategoryActivity : BaseActivity() {
         items?.let {
             val adapter = CategoryAdapter(it) {dish ->
                 val intent = Intent(this, DetailActivity::class.java)
-               // intent.putExtra(DetailActivity.DISH_EXTRA, dish)
+                intent.putExtra(DetailActivity.DISH_EXTRA, dish)
                 startActivity(intent)
             }
             binding.recyclerView.layoutManager= LinearLayoutManager(this)
             binding.recyclerView.adapter = adapter
         }
     }
+
+
 
     private fun getCategoryTitle(item: ItemType?): String {
         return when(item) {

@@ -31,7 +31,7 @@ class PhotoFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(url: String)= PhotoFragment().apply { arguments = Bundle().apply { putString("url", url) } }
+        fun newInstance(url: String)= PhotoFragment().apply { arguments = Bundle().apply { putString(URL, url) } }
 
         const val URL = "URL"
     }
