@@ -14,7 +14,6 @@ open class BaseActivity: AppCompatActivity() {
         menuInflater.inflate(R.menu.menu, menu)
         val menuView = menu?.findItem(R.id.basket)?.actionView
         val countText = menuView?.findViewById(R.id.basketCount) as? TextView
-        //countText?.text = "1"
         val count = getItemsCount()
         countText?.isVisible = count > 0
 

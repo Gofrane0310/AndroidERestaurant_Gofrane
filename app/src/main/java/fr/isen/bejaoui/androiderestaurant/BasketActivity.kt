@@ -26,8 +26,8 @@ class BasketActivity : AppCompatActivity() {
         reloadData(Basket.getBasket(this))
 
         binding.orderButton.setOnClickListener {
-            val intent=Intent(this, RegisterActivity::class.java)
-            startActivityForResult(intent, RegisterActivity.REQUEST_CODE)
+            val intent=Intent(this, UserActivity::class.java)
+            startActivityForResult(intent, UserActivity.REQUEST_CODE)
         }
     }
 
@@ -47,8 +47,8 @@ class BasketActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == RegisterActivity.REQUEST_CODE &&
             resultCode  == Activity.RESULT_FIRST_USER) {
-            val sharedPreferences = getSharedPreferences((RegisterActivity.USER_PREFERENCES_NAME), Context.MODE_PRIVATE)
-            val idUser = sharedPreferences.getInt(RegisterActivity.ID_USER, -1)
+            val sharedPreferences = getSharedPreferences((UserActivity.USER_PREFERENCES_NAME), Context.MODE_PRIVATE)
+            val idUser = sharedPreferences.getInt(UserActivity.ID_USER, -1)
             if (idUser != -1){
                 sendOrder(idUser)
             }
@@ -92,5 +92,11 @@ class BasketActivity : AppCompatActivity() {
             }
         )
         queue.add(request)
+    }
+
+    companion object{
+        const val REQUEST_CODE = 111
+        const val ID_USER = "ID_USER"
+        const val USER_PREFERENCES_NAME = "USER_PREFERENCES_NAME"
     }
 }

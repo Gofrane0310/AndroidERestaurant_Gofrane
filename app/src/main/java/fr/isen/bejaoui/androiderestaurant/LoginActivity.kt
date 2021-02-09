@@ -75,12 +75,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun saveUser(user: User){
-        val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putInt(RegisterActivity.ID_USER, user.id)
+        editor.putInt(ID_USER, user.id)
         editor.apply()
 
         setResult(Activity.RESULT_FIRST_USER)
         finish()
+    }
+
+    companion object{
+        const val REQUEST_CODE = 111
+        const val ID_USER = "ID_USER"
+        const val USER_PREFERENCES_NAME = "USER_PREFERENCES_NAME"
     }
 }
